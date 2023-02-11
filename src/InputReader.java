@@ -1,10 +1,9 @@
 import java.io.*;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InputReader {
     private static final String inputFile = "data/input.txt";
+
     public static ComplexNumber[] readNumbers() {
         LinkedBlockingDeque<ComplexNumber> numbersContainer = new LinkedBlockingDeque<>();
         int lineNumber = 0;
@@ -13,7 +12,9 @@ public class InputReader {
             String line = reader.readLine();
             while (line != null) {
                 lineNumber++;
-                numbersContainer.push(parseComplexNumber(line));
+                ComplexNumber toAdd = parseComplexNumber(line);
+                if (toAdd != null)
+                    numbersContainer.push(toAdd);
                 line = reader.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -47,46 +48,38 @@ public class InputReader {
         defaultList[7] = new ComplexNumber(9, -9);
         return defaultList;
     }
-    private static ComplexNumber parseComplexNumber(String line) {
-        Pattern pattern = Pattern.compile("[0-9]*\s[0-9]*");
-        Matcher matcher = pattern.matcher(line);
-        return matcher.matches() ? defaultRead(line) : advancedRead(line);
+    protected static ComplexNumber parseComplexNumber(String line) {
+        return line.matches("[+-]?\\d+\s+[+-]?\\d+") ? defaultRead(line) : advancedRead(line);
     }
-
     private static ComplexNumber defaultRead(String line) {
-        String[] lines = line.trim().split("\s");
+        String[] lines = line.trim().split("\s+");
         assert lines.length == 2;
         return new ComplexNumber(Integer.parseInt(lines[0]), Integer.parseInt(lines[1]));
     }
     private static ComplexNumber advancedRead(String line) {
-        line = line.replaceAll("\s", "");
+        line = line.replaceAll("\\s+", "");
+
+        line = line.replaceAll("-", "+-");
+        String[] parts = line.split("\\+");
         int real = 0;
         int imaginary = 0;
-        boolean isImaginaryPart = false;
-        StringBuilder temp = new StringBuilder();
-        for (char ch : line.toCharArray()) {
-            switch (ch) {
-                case 'i':
-                    isImaginaryPart = true;
-                    break;
-                case '+':
-                    if (isImaginaryPart) {
-
-                    }
-                    isImaginaryPart = false;
-                    break;
-                case '-':
-                    if (isImaginaryPart) {
-
-                    }
-                    isImaginaryPart = false;
-                    temp.append(ch);
-                    break;
-
+        for (String number : parts) {
+            if (number.isEmpty())
+                continue;
+            if (number.contains("i")) {
+                number = number.replaceAll("(\\*?i)|(8\\*?)", "");
+                if (number.isEmpty()) {
+                    imaginary += 1;
+                } else if (number.equals("-")){
+                    imaginary -= 1;
+                } else {
+                    imaginary += Integer.parseInt(number);
+                }
+            }
+            else {
+                real += Integer.parseInt(number);
             }
         }
-
         return new ComplexNumber(real, imaginary);
     }
-
 }

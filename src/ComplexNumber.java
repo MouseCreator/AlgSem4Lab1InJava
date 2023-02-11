@@ -22,4 +22,19 @@ public class ComplexNumber {
     public double module() {
         return Math.sqrt(real*real + imaginary*imaginary);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof ComplexNumber other))
+            return false;
+
+        return (other.real == this.real) && (other.imaginary == this.imaginary);
+
+    }
+    @Override
+    public String toString() {
+        return this.real + "" + this.imaginary + "*i";
+    }
 }
