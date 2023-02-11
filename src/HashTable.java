@@ -81,9 +81,9 @@ public class HashTable implements Container{
 
     @Override
     public String print(int tLevel) {
-        StringBuilder builder = new StringBuilder("Hash table\n");
+        StringBuilder builder = new StringBuilder(tabulation(tLevel)+"Hash table\n");
         for (int i = 0; i < size; i++) {
-            builder.append("[").append(i).append("] :");
+            builder.append(tabulation(tLevel)).append("[").append(i).append("]:\t");
             if (fields[i] == null)
                 builder.append("-");
             else

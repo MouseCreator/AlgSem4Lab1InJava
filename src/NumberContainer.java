@@ -6,12 +6,8 @@ public class NumberContainer implements Container {
 
     @Override
     public String print(int tLevel) {
-        return tabulation(tLevel) + number.toString() + "\n";
+        return number.toString() + "\n";
     }
-    public String tabulation(int tLevel) {
-        return "\t".repeat(Math.max(0, tLevel));
-    }
-
     @Override
     public void insert(ComplexNumber value) {
         number = value;
