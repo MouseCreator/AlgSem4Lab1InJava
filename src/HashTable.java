@@ -5,13 +5,15 @@ public class HashTable implements Container{
     private final int size;
     private int a;
     private int b;
-    private int c;
 
     private int p ;
-    private final Random random;
+    private static Random random = new Random();
+
+    public void setSeed(int seed) {
+        random = new Random(seed);
+    }
     public HashTable(ComplexNumber[] array) {
         this.size = array.length;
-        random = new Random();
         randomizeHashFunction();
         setP(array);
         fromComplexNumberArray(array);
@@ -37,7 +39,6 @@ public class HashTable implements Container{
 
     private HashTable(ComplexNumberStack stack, int size, int p) {
         this.p = p;
-        random = new Random();
         this.size = size;
         toNumberContainers(stack);
     }
@@ -68,11 +69,10 @@ public class HashTable implements Container{
     public void randomizeHashFunction() {
         a = random.nextInt(1, size+1);
         b = random.nextInt(1, size+1);
-        c = random.nextInt(0, size);
     }
 
     private int sumHash(ComplexNumber toHash) {
-      return (a * a * toHash.re() + b * toHash.im()) + c;
+      return a * toHash.toInteger() + b;
     }
     public int hashFunction(ComplexNumber toHash) {
         return ((sumHash(toHash)) % p) % size;

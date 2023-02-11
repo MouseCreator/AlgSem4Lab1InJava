@@ -2,15 +2,26 @@ public class ComplexNumber {
 
     private final int real;
     private final int imaginary;
+    private final int group;
 
     public ComplexNumber(int real, int imaginary) {
         this.real = real;
         this.imaginary = imaginary;
+        if (real < 0 && imaginary < 0) {
+            group = 0;
+        } else if (real >= 0 && imaginary < 0) {
+            group = 1;
+        } else if (real < 0) {
+            group = 2;
+        } else {
+            group = 3;
+        }
     }
 
     public ComplexNumber() {
         real = 0;
         imaginary = 0;
+        group = 1;
     }
 
     public int re() {
@@ -52,5 +63,14 @@ public class ComplexNumber {
     }
     private String printReal() {
         return real + "";
+    }
+
+    public int toInteger() {
+        int x = Math.abs(real);
+        int y = Math.abs(imaginary);
+        return cantorValue(x, cantorValue(y, group));
+    }
+    private int cantorValue(int a, int b) {
+        return (a * (a + 3 + 2 * b) + b * (1 + b)) / 2;
     }
 }
