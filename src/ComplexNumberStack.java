@@ -4,7 +4,7 @@ public class ComplexNumberStack {
 
     public ComplexNumberStack() {
         size = 0;
-        top = new ListNode();
+        top = null;
     }
 
     public void push(ComplexNumber number) {
@@ -14,7 +14,7 @@ public class ComplexNumberStack {
     public NumberContainer[] toContainers() {
         NumberContainer[] result = new NumberContainer[size];
         int i = 0;
-        for (ListNode current = top; top != null; current = current.getNext(), i++) {
+        for (ListNode current = top; current != null; current = current.getNext(), i++) {
             result[i] = new NumberContainer(current.getValue());
         }
         return result;

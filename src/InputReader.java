@@ -30,7 +30,8 @@ public class InputReader {
             return defaultList();
         else {
             ComplexNumber[] array = new ComplexNumber[input.size()];
-            for (int i = 0; i < input.size(); i++) {
+            int size = input.size();
+            for (int i = size - 1; i >= 0; i--) {
                 array[i] = input.pop();
             }
             return array;
