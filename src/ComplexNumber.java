@@ -19,9 +19,6 @@ public class ComplexNumber {
     public int im() {
         return imaginary;
     }
-    public double module() {
-        return Math.sqrt(real*real + imaginary*imaginary);
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -35,6 +32,6 @@ public class ComplexNumber {
     }
     @Override
     public String toString() {
-        return this.real + "" + this.imaginary + "*i";
+        return this.imaginary < 0 ? this.real + "+" + this.imaginary + "*i": this.real + "" + this.imaginary + "*i";
     }
 }

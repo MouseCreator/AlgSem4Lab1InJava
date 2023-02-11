@@ -1,5 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        ComplexNumber[] toHash = InputReader.readNumbers();
+        HashTable table = new HashTable(toHash);
+        OutputWriter.write(table.print(0));
     }
 }
