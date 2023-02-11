@@ -1,12 +1,35 @@
 import java.util.Random;
 
 public class HashTable implements Container{
-    private final Container[] fields;
+    private Container[] fields;
     private final int size;
     private int a = 0;
     private int b = 0;
     private int c = 0;
     private final Random random;
+    public HashTable(ComplexNumber[] array) {
+        this.size = array.length;
+        randomizeHashFunction();
+        random = new Random();
+        fromComplexNumberArray(array);
+    }
+
+    private void fromComplexNumberArray(ComplexNumber[] array) {
+        int size = array.length;
+        ComplexNumberStack[] stack = new ComplexNumberStack[size];
+        for (ComplexNumber complexNumber : array) {
+            int hash = hashFunction(complexNumber);
+            if (stack[hash] == null) {
+                stack[hash] = new ComplexNumberStack();
+            }
+            stack[hash].push(complexNumber);
+        }
+        HashTable[] subtables = new HashTable[size];
+        for (int i = 0; i < array.length; i++) {
+            subtables[i] = new HashTable(stack[i].toContainers(), stack[i].size()*stack[i].size());
+        }
+        this.fields = subtables;
+    }
 
     public HashTable(Container[] fields, int size) {
         this.fields = fields;

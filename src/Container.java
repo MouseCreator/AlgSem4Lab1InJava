@@ -1,5 +1,5 @@
 public interface Container {
 
 
-    public void insert(ComplexNumber value);
+    void insert(ComplexNumber value);
 }
