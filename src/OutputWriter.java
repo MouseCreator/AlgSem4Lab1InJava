@@ -1,10 +1,9 @@
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class OutputWriter {
-    private static final String outputFile = "output.txt";
+    private static final String outputFile = "data/output.txt";
     public static void logError(String errorMessage) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
