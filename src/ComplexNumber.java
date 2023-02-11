@@ -32,6 +32,25 @@ public class ComplexNumber {
     }
     @Override
     public String toString() {
-        return this.imaginary < 0 ? this.real + "+" + this.imaginary + "*i": this.real + "" + this.imaginary + "*i";
+       if (real == 0 && imaginary == 0)
+           return "0";
+       if (real == 0)
+           return printImaginary();
+       if (imaginary == 0)
+           return printReal();
+       if (imaginary > 0)
+           return printReal() + "+" + printImaginary();
+       else
+           return printReal() + printImaginary();
+    }
+    private String printImaginary() {
+        if (imaginary == 1)
+            return "i";
+        if (imaginary == -1)
+            return "-1";
+        return imaginary + "*i";
+    }
+    private String printReal() {
+        return real + "";
     }
 }
