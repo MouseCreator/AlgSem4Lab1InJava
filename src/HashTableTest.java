@@ -38,6 +38,11 @@ class HashTableTest {
         }
         System.out.println("TRUE: " + TCount + " FALSE: " + FCount);
     }
+
+    /**
+     * Problem: input key 1546212 is greater than 36355 and 805, meaning that P is much greater too.
+     * Both 36355 % 9 = 4 and 805 % 9 = 4, and P does not affect their modules.
+     */
     @Test
     void testCollisionsOnLarge() {
         int size = 3;
@@ -47,9 +52,11 @@ class HashTableTest {
         arr[2] = new ComplexNumber(-25,-4);
         int p = 0;
         for (ComplexNumber c : arr) {
+            System.out.println("Key: " + c.toInteger());
             p = Math.max(p, c.toInteger());
         }
         p = Primes.nextPrime(p);
+        System.out.println("P: " + p);
         int FCount = 0;
         int TCount = 0;
         for (int i = 1; i < size*size; i++) {
