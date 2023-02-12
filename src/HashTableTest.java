@@ -40,9 +40,11 @@ class HashTableTest {
     }
     @Test
     void testCollisionsOnLarge() {
-        ComplexNumber[] arr = new ComplexNumber[2];
-        arr[0] = new ComplexNumber(-63, -16);
-        arr[1] = new ComplexNumber(87, -41);
+        int size = 3;
+        ComplexNumber[] arr = new ComplexNumber[size];
+        arr[0] = new ComplexNumber(40, -19);
+        arr[1] = new ComplexNumber(51, 54);
+        arr[2] = new ComplexNumber(-25,-4);
         int p = 0;
         for (ComplexNumber c : arr) {
             p = Math.max(p, c.toInteger());
@@ -50,12 +52,12 @@ class HashTableTest {
         p = Primes.nextPrime(p);
         int FCount = 0;
         int TCount = 0;
-        for (int i = 1; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                int[] memory = new int[4];
+        for (int i = 1; i < size*size; i++) {
+            for (int j = 0; j < size*size; j++) {
+                int[] memory = new int[size];
                 int k = 0;
                 for (ComplexNumber c : arr) {
-                    int code = hash(c, i, j, p, 4);
+                    int code = hash(c, i, j, p, size*size);
                     memory[k++] = code;
                     System.out.print(code + "\t");
                 }
@@ -82,5 +84,10 @@ class HashTableTest {
         HashTable table = new HashTable();
         table.hash(arr);
         OutputWriter.write(table.print(0));
+    }
+
+    @Test
+    void impossibleHashTest() {
+
     }
 }

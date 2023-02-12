@@ -54,7 +54,7 @@ public class HashTable implements Container{
     }
 
     private void toNumberContainers(ComplexNumberStack stack) {
-        randomizeHashFunction();
+        getNextGenHashFunction();
         fields = new NumberContainer[size];
         NumberContainer[] containers = stack.toContainers();
         for (NumberContainer container : containers) {
@@ -64,6 +64,21 @@ public class HashTable implements Container{
                 break;
             }
             fields[hash] = new NumberContainer(container.get());
+        }
+    }
+
+    private void getNextGenHashFunction() {
+        if (a == 0) {
+            a++;
+            return;
+        }
+        b++;
+        if (b == size) {
+            a++;
+            b = 0;
+            if (a == size) {
+                System.out.println("Impossible!");
+            }
         }
     }
 
