@@ -2,23 +2,26 @@ import java.util.Random;
 
 public class HashTable implements Container{
     private Container[] fields;
-    private final int size;
+    private int size;
     private int a;
     private int b;
 
     private int p ;
-    private static Random random = new Random();
+    private static Random random;
 
-    public void setSeed(int seed) {
+    public HashTable(long seed) {
         random = new Random(seed);
     }
-    public HashTable(ComplexNumber[] array) {
+    public HashTable() {
+        random = new Random();
+    }
+
+    public void hash(ComplexNumber[] array) {
         this.size = array.length;
         randomizeHashFunction();
         setP(array);
         fromComplexNumberArray(array);
     }
-
     private void fromComplexNumberArray(ComplexNumber[] array) {
         int size = array.length;
         ComplexNumberStack[] stack = new ComplexNumberStack[size];
@@ -43,10 +46,10 @@ public class HashTable implements Container{
         toNumberContainers(stack);
     }
 
-    private void setP(ComplexNumber[] forList) {
+    protected void setP(ComplexNumber[] forList) {
         int max = 0;
         for (ComplexNumber c : forList) {
-            max = Math.max(sumHash(c), max);
+            max = Math.max(c.toInteger(), max);
         }
         p = Primes.nextPrime(max);
     }
@@ -67,8 +70,8 @@ public class HashTable implements Container{
 
 
     public void randomizeHashFunction() {
-        a = random.nextInt(1, size+1);
-        b = random.nextInt(1, size+1);
+        a = random.nextInt(0, size);
+        b = (size == 1) ? 1 : random.nextInt(1, size);
     }
 
     private int sumHash(ComplexNumber toHash) {

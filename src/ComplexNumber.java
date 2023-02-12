@@ -70,7 +70,7 @@ public class ComplexNumber {
         int y = Math.abs(imaginary);
         return cantorValue(x, cantorValue(y, group));
     }
-    private int cantorValue(int a, int b) {
-        return (a * (a + 3 + 2 * b) + b * (1 + b)) / 2;
+    protected int cantorValue(int a, int b) {
+        return (a+b)*(a+b+1)/2+a;
     }
 }
