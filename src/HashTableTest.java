@@ -22,7 +22,7 @@ class HashTableTest {
                 int[] memory = new int[4];
                 int k = 0;
                 for (ComplexNumber c : arr) {
-                    int code = hash(c, i, j, p);
+                    int code = hash(c, i, j, p, 16);
                     memory[k++] = code;
                     System.out.print(code + "\t");
                 }
@@ -38,8 +38,41 @@ class HashTableTest {
         }
         System.out.println("TRUE: " + TCount + " FALSE: " + FCount);
     }
-    private int hash(ComplexNumber c, int a, int b, int p) {
-        return ((c.toInteger() * a + b) % p) % 16;
+    @Test
+    void testCollisionsOnLarge() {
+        ComplexNumber[] arr = new ComplexNumber[2];
+        arr[0] = new ComplexNumber(-63, -16);
+        arr[1] = new ComplexNumber(87, -41);
+        int p = 0;
+        for (ComplexNumber c : arr) {
+            p = Math.max(p, c.toInteger());
+        }
+        p = Primes.nextPrime(p);
+        int FCount = 0;
+        int TCount = 0;
+        for (int i = 1; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                int[] memory = new int[4];
+                int k = 0;
+                for (ComplexNumber c : arr) {
+                    int code = hash(c, i, j, p, 4);
+                    memory[k++] = code;
+                    System.out.print(code + "\t");
+                }
+                if (Arrays.stream(memory).distinct().toArray().length == arr.length) {
+                    System.out.println("true");
+                    TCount++;
+                }
+                else {
+                    System.out.println("false");
+                    FCount++;
+                }
+            }
+        }
+        System.out.println("TRUE: " + TCount + " FALSE: " + FCount);
+    }
+    private int hash(ComplexNumber c, int a, int b, int p, int m) {
+        return ((c.toInteger() * a + b) % p) % m;
     }
 
     @Test

@@ -34,13 +34,13 @@ public class HashTable implements Container{
         HashTable[] secondLayer = new HashTable[size];
         for (int i = 0; i < array.length; i++) {
             if (stack[i] != null)
-                secondLayer[i] = new HashTable(stack[i], stack[i].size()*stack[i].size(), p);
+                secondLayer[i] = new HashTable(stack[i], stack[i].size()*stack[i].size());
         }
         this.fields = secondLayer;
     }
 
-    private HashTable(ComplexNumberStack stack, int size, int p) {
-        this.p = p;
+    private HashTable(ComplexNumberStack stack, int size) {
+        setP(stack.toComplexNumbers());
         this.size = size;
         toNumberContainers(stack);
     }

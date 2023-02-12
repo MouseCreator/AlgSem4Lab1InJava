@@ -19,6 +19,14 @@ public class ComplexNumberStack {
         }
         return result;
     }
+    public ComplexNumber[] toComplexNumbers() {
+        ComplexNumber[] result = new ComplexNumber[size];
+        int i = 0;
+        for (ListNode current = top; current != null; current = current.getNext(), i++) {
+            result[i] = current.getValue();
+        }
+        return result;
+    }
 
     public int size() {
         return size;
