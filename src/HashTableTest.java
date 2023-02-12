@@ -41,4 +41,13 @@ class HashTableTest {
     private int hash(ComplexNumber c, int a, int b, int p) {
         return ((c.toInteger() * a + b) % p) % 16;
     }
+
+    @Test
+    void inActionTest() {
+        ComplexNumberGenerator generator = new ComplexNumberGenerator();
+        ComplexNumber[] arr = generator.generate(100);
+        HashTable table = new HashTable();
+        table.hash(arr);
+        OutputWriter.write(table.print(0));
+    }
 }
