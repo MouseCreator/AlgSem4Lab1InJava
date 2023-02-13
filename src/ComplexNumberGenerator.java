@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class ComplexNumberGenerator {
@@ -16,8 +17,8 @@ public class ComplexNumberGenerator {
         return arr;
     }
     private int getInt() {
-        int result = random.nextInt(100);
-        result *= Math.pow(-1, random.nextInt());
+        int result = random.nextInt(20);
+        result *= Math.pow(-1, random.nextInt(2));
         return result;
     }
 }

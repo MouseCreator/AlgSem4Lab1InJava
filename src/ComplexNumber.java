@@ -68,8 +68,7 @@ public class ComplexNumber {
     public int toInteger() {
         int x = Math.abs(real);
         int y = Math.abs(imaginary);
-        int key = cantorValue(x, cantorValue(y, group));
-        return key;
+        return cantorValue(x, cantorValue(y, group));
     }
     protected int cantorValue(int a, int b) {
         return (a+b)*(a+b+1)/2+a;

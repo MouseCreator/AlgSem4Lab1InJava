@@ -16,10 +16,26 @@ public class HashTable implements Container{
     }
 
     public void hash(ComplexNumber[] array) {
+        array = removeDuplicates(array);
         this.size = array.length;
-        randomizeHashFunction();
         setP(array);
+        randomizeHashFunction();
         fromComplexNumberArray(array);
+    }
+    private ComplexNumber[] removeDuplicates (ComplexNumber[] array) {
+        ComplexNumberStack stack = new ComplexNumberStack();
+        for (int i = 0; i < array.length; i++) {
+            boolean isDistinct = true;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i].equals(array[j])) {
+                    isDistinct = false;
+                    break;
+                }
+            }
+            if (isDistinct)
+                stack.push(array[i]);
+        }
+        return stack.toComplexNumbers();
     }
     private void fromComplexNumberArray(ComplexNumber[] array) {
         int size = array.length;
@@ -34,17 +50,16 @@ public class HashTable implements Container{
         HashTable[] secondLayer = new HashTable[size];
         for (int i = 0; i < array.length; i++) {
             if (stack[i] != null)
-                secondLayer[i] = new HashTable(stack[i], stack[i].size()*stack[i].size());
+                secondLayer[i] = new HashTable(stack[i], stack[i].size()*stack[i].size(), p);
         }
         this.fields = secondLayer;
     }
 
-    private HashTable(ComplexNumberStack stack, int size) {
-        setP(stack.toComplexNumbers());
+    private HashTable(ComplexNumberStack stack, int size, int p) {
+        this.p = p;
         this.size = size;
         toNumberContainers(stack);
     }
-
     protected void setP(ComplexNumber[] forList) {
         int max = 0;
         for (ComplexNumber c : forList) {
@@ -54,7 +69,7 @@ public class HashTable implements Container{
     }
 
     private void toNumberContainers(ComplexNumberStack stack) {
-        getNextGenHashFunction();
+        randomizeHashFunction();
         fields = new NumberContainer[size];
         NumberContainer[] containers = stack.toContainers();
         for (NumberContainer container : containers) {
@@ -67,25 +82,9 @@ public class HashTable implements Container{
         }
     }
 
-    private void getNextGenHashFunction() {
-        if (a == 0) {
-            a++;
-            return;
-        }
-        b++;
-        if (b == size) {
-            a++;
-            b = 0;
-            if (a == size) {
-                System.out.println("Impossible!");
-            }
-        }
-    }
-
-
     public void randomizeHashFunction() {
-        a = random.nextInt(0, size);
-        b = (size == 1) ? 1 : random.nextInt(1, size);
+        a = random.nextInt(0, p);
+        b = (size == 1) ? 1 : random.nextInt(1, p);
     }
 
     private int sumHash(ComplexNumber toHash) {
@@ -99,7 +98,7 @@ public class HashTable implements Container{
 
     @Override
     public String print(int tLevel) {
-        StringBuilder builder = new StringBuilder(tabulation(tLevel)+"Hash table\n");
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < size; i++) {
             builder.append(tabulation(tLevel)).append("[").append(i).append("]:\t");
             if (fields[i] == null)
