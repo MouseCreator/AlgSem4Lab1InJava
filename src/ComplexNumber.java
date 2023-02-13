@@ -11,9 +11,9 @@ public class ComplexNumber {
             group = 0;
         } else if (real >= 0 && imaginary < 0) {
             group = 1;
-        } else if (real < 0) {
+        } else if (real < 0) { //imaginary >= 0
             group = 2;
-        } else {
+        } else { //real >= 0 imaginary >= 0
             group = 3;
         }
     }
@@ -68,7 +68,7 @@ public class ComplexNumber {
     public int toInteger() {
         int x = Math.abs(real);
         int y = Math.abs(imaginary);
-        return cantorValue(x, cantorValue(y, group));
+        return cantorValue(x, y) * 4 + group;
     }
     protected int cantorValue(int a, int b) {
         return (a+b)*(a+b+1)/2+a;

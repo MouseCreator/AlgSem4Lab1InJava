@@ -1,5 +1,7 @@
 public class Primes {
     public static int nextPrime(int a) {
+        if (a < 2)
+            return 2;
         while (!isPrime(a))
             a++;
         return a;
