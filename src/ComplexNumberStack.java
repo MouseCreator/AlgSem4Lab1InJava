@@ -1,25 +1,32 @@
 public class ComplexNumberStack {
-    private ListNode top;
-    private int size;
+    private ListNode top; //верхній елемент стеку
+    private int size; //кількість елементів стеку
 
-    public ComplexNumberStack() {
+    public ComplexNumberStack() { //створення порожнього стеку
         size = 0;
         top = null;
     }
 
-    public void push(ComplexNumber number) {
+    public ComplexNumberStack(ComplexNumber[] array) { //створення стеку з масиву
+        if (array != null)
+            for (ComplexNumber a : array) {
+                push(a);
+            }
+    }
+
+    public void push(ComplexNumber number) { //додання елементу до стеку
         this.top = new ListNode(number, top);
         size++;
     }
-    public NumberContainer[] toContainers() {
-        NumberContainer[] result = new NumberContainer[size];
+    public ComplexNumberContainer[] toContainers() { //перетворення стеку в масив контейнерів комплексних чисел
+        ComplexNumberContainer[] result = new ComplexNumberContainer[size];
         int i = 0;
         for (ListNode current = top; current != null; current = current.getNext(), i++) {
-            result[i] = new NumberContainer(current.getValue());
+            result[i] = new ComplexNumberContainer(current.getValue());
         }
         return result;
     }
-    public ComplexNumber[] toComplexNumbers() {
+    public ComplexNumber[] toComplexNumbers() { //перетворення стеку в масив комплексних чисел
         ComplexNumber[] result = new ComplexNumber[size];
         int i = 0;
         for (ListNode current = top; current != null; current = current.getNext(), i++) {
@@ -30,5 +37,5 @@ public class ComplexNumberStack {
 
     public int size() {
         return size;
-    }
+    } //розмір стеку
 }

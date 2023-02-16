@@ -1,6 +1,6 @@
-public class NumberContainer implements Container {
+public class ComplexNumberContainer implements Container {
     private ComplexNumber number;
-    public NumberContainer(ComplexNumber n) {
+    public ComplexNumberContainer(ComplexNumber n) {
         this.number = n;
     }
 
@@ -11,6 +11,11 @@ public class NumberContainer implements Container {
     @Override
     public void insert(ComplexNumber value) {
         number = value;
+    }
+
+    @Override
+    public void pickHashedData(ComplexNumberStack pushTo) {
+        pushTo.push(number);
     }
 
     public ComplexNumber get() {
