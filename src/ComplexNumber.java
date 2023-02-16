@@ -1,15 +1,25 @@
 public class ComplexNumber {
 
-    private final int real;
-    private final int imaginary;
-    private final int group;
+    private final int real; //дійсна частина числа
+    private final int imaginary; //уявна частина числа
+    private final int group; //знакова група
+    // 0 - (++)
+    // 1 - (+-)
+    // 2 - (-+)
+    // 3 - (--)
 
+    /**
+     *
+     * @param real - дійсна частина числа
+     * @param imaginary - уявна частина числа
+     * Створює число real + imaginary * i.
+     */
     public ComplexNumber(int real, int imaginary) {
         this.real = real;
         this.imaginary = imaginary;
-        if (real < 0 && imaginary < 0) {
+        if (real >= 0 && imaginary >= 0) {
             group = 0;
-        } else if (real >= 0 && imaginary < 0) {
+        } else if (real < 0 && imaginary >= 0) {
             group = 1;
         } else if (real < 0) { //imaginary >= 0
             group = 2;
@@ -18,10 +28,13 @@ public class ComplexNumber {
         }
     }
 
+    /**
+     * Створює число 0
+     */
     public ComplexNumber() {
         real = 0;
         imaginary = 0;
-        group = 1;
+        group = 0;
     }
 
     public int re() {
@@ -65,12 +78,23 @@ public class ComplexNumber {
         return real + "";
     }
 
+    /**
+     *
+     * @return унікальне цілочисельне значення, що базується на взаємно-однозначній відповідності пар чисел та цілих.
+     */
     public int toInteger() {
         int x = Math.abs(real);
         int y = Math.abs(imaginary);
-        return cantorValue(x, y) * 4 + group;
+        return pairingFunction(x, y) * 4 + group;
     }
-    protected int cantorValue(int a, int b) {
+
+    /**
+     *
+     * @param a - перша координата
+     * @param b - друга координата
+     * @return номер пари в нумерації Кантора
+     */
+    protected int pairingFunction(int a, int b) {
         return (a+b)*(a+b+1)/2+a;
     }
 }

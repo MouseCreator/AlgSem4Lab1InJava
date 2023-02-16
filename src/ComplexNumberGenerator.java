@@ -7,6 +7,11 @@ public class ComplexNumberGenerator {
         random = new Random();
     }
 
+    /**
+     *
+     * @param number - кількість комплексних чисел, яку необхідно згенерувати
+     * @return масив випадкових допустимих комплексних чисел
+     */
     public ComplexNumber[] generate(int number) {
         ComplexNumber[] arr = new ComplexNumber[number];
         for (int i = 0; i < number; i++) {
@@ -17,10 +22,15 @@ public class ComplexNumberGenerator {
         return arr;
     }
 
-    public final int MAX_BOUND = 150;
+    public final int MAX_BOUND = 150; //значення суми компонент, при якому хеш гарантовано не виходить за INT_MAX.
+
+    /**
+     *
+     * @param limit - діапазон значень
+     * @return випадкове значення [-limit, limit]
+     */
     private int getInt(int limit) {
-        int result = limit < 1 ? 0 :random.nextInt(limit);
-        result *= Math.pow(-1, random.nextInt(2));
-        return result;
+        int absoluteLimit = Math.abs(limit);
+        return absoluteLimit < 1 ? 0 : random.nextInt(-absoluteLimit, absoluteLimit+1);
     }
 }

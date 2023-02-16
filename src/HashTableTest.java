@@ -39,10 +39,6 @@ class HashTableTest {
         System.out.println("TRUE: " + TCount + " FALSE: " + FCount);
     }
 
-    /**
-     * Problem: input key 1546212 is greater than 36355 and 805, meaning that P is much greater too.
-     * Both 36355 % 9 = 4 and 805 % 9 = 4, and P does not affect their modules.
-     */
     @Test
     void testCollisionsOnLarge() {
         int size = 3;
@@ -91,10 +87,5 @@ class HashTableTest {
         HashTable table = new HashTable();
         table.hash(arr);
         OutputWriter.write(table.print(0));
-    }
-
-    @Test
-    void impossibleHashTest() {
-
     }
 }
