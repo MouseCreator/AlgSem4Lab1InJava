@@ -37,13 +37,6 @@ public class ComplexNumber {
         group = 0;
     }
 
-    public int re() {
-        return real;
-    }
-    public int im() {
-        return imaginary;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
