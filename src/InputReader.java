@@ -1,49 +1,45 @@
+import javax.print.attribute.standard.MediaSize;
 import java.io.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class InputReader {
     private static final String inputFile = "data/input.txt";
 
+    /**
+     * Зчитує комплексні числа з файлу input
+     * @return масив комплексних чисел у файлі, якщо зчитування пройшло успішно. Стандартний масив вхідних даних - інакше
+     */
     public static ComplexNumber[] readNumbers() {
-        LinkedBlockingDeque<ComplexNumber> numbersContainer = new LinkedBlockingDeque<>();
+        ComplexNumberQueue numbers = new ComplexNumberQueue();
         int lineNumber = 0;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
             String line = reader.readLine();
             while (line != null) {
                 lineNumber++;
-                ComplexNumber toAdd = parseComplexNumber(line);
-                if (toAdd != null)
-                    numbersContainer.push(toAdd);
+                try {
+                    ComplexNumber toAdd = parseComplexNumber(line);
+                    if (toAdd != null)
+                        numbers.push(toAdd);
+                } catch (Exception e) {
+                    OutputWriter.logError("An error occurred during reading line " + lineNumber);
+                }
                 line = reader.readLine();
             }
-        } catch (FileNotFoundException e) {
-            OutputWriter.logError("Cannot find input.txt file");
         } catch (IOException e) {
             OutputWriter.logError("An error occurred during reading line " + lineNumber);
         }
-        return toNumbers(numbersContainer);
+        return numbers.toComplexNumbers();
 
     }
-    private static ComplexNumber[] toNumbers(LinkedBlockingDeque<ComplexNumber> input) {
-        if (input.isEmpty())
-            return defaultList();
-        else {
-            ComplexNumber[] array = new ComplexNumber[input.size()];
-            int size = input.size();
-            for (int i = size - 1; i >= 0; i--) {
-                array[i] = input.pop();
-            }
-            return array;
-        }
-    }
+
     private static ComplexNumber[] defaultList() {
         ComplexNumber[] defaultList = new ComplexNumber[8];
-        defaultList[0] = new ComplexNumber(200, 100);
+        defaultList[0] = new ComplexNumber(20, 100);
         defaultList[1] = new ComplexNumber(-86, 2);
         defaultList[2] = new ComplexNumber(0, 0);
         defaultList[3] = new ComplexNumber(4, 8);
-        defaultList[4] = new ComplexNumber(-2, -777);
+        defaultList[4] = new ComplexNumber(-2, -112);
         defaultList[5] = new ComplexNumber(123, 0);
         defaultList[6] = new ComplexNumber(0, 123);
         defaultList[7] = new ComplexNumber(9, -9);

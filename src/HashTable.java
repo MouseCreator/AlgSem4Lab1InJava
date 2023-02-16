@@ -158,12 +158,11 @@ public class HashTable implements Container{
     public String print(int tLevel) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            builder.append("\t".repeat(Math.max(0, tLevel))).append("[").append(i).append("]:\t");
+            builder.append("\n").append("\t".repeat(Math.max(0, tLevel))).append("[").append(i).append("]:\t");
             if (fields[i] == null)
                 builder.append("-");
             else
                 builder.append(fields[i].print(tLevel+1));
-            builder.append("\n");
         }
         return builder.toString();
     }

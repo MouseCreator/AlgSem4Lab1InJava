@@ -86,6 +86,6 @@ class HashTableTest {
         ComplexNumber[] arr = generator.generate(100);
         HashTable table = new HashTable();
         table.hash(arr);
-        OutputWriter.write(table.print(0));
+        OutputWriter.writeAsTest(table.print(0));
     }
 }

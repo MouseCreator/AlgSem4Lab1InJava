@@ -11,7 +11,7 @@ public class ComplexNumberContainer implements Container {
      */
     @Override
     public String print(int tLevel) {
-        return number.toString() + "\n";
+        return number.toString();
     }
 
     /**
