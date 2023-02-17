@@ -1,22 +1,22 @@
-import javax.print.attribute.standard.MediaSize;
-import java.io.*;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class InputReader {
     private static final String inputFile = "data/input.txt";
 
     /**
-     * Зчитує комплексні числа з файлу input
+     * Зчитує комплексні числа з файлу input з розрахунком, що кожне число написане з нового радка
      * @return масив комплексних чисел у файлі, якщо зчитування пройшло успішно. Стандартний масив вхідних даних - інакше
      */
     public static ComplexNumber[] readNumbers() {
         ComplexNumberQueue numbers = new ComplexNumberQueue();
         int lineNumber = 0;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile)); //відкрити файл
             String line = reader.readLine();
             while (line != null) {
-                lineNumber++;
+                lineNumber++; //підрахунок рядків (для можливого точного вказання місця помилки)
                 try {
                     ComplexNumber toAdd = parseComplexNumber(line);
                     if (toAdd != null)
@@ -27,12 +27,17 @@ public class InputReader {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            OutputWriter.logError("An error occurred during reading line " + lineNumber);
+            OutputWriter.logError("Cannot open input file. Default values will be used instead.");
+            return defaultList();
         }
         return numbers.toComplexNumbers();
 
     }
 
+    /**
+     *
+     * @return приклад вхідного списку
+     */
     private static ComplexNumber[] defaultList() {
         ComplexNumber[] defaultList = new ComplexNumber[8];
         defaultList[0] = new ComplexNumber(20, 100);

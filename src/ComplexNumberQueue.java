@@ -26,8 +26,8 @@ public class ComplexNumberQueue {
     public ComplexNumber pop() { //додання елементу до стеку
         if (size == 0)
             return null;
-        ComplexNumber n = head.getValue();
-        head = head.getNext();
+        ComplexNumber n = head.value();
+        head = head.next();
         if (head == null)
             tail = null;
         size--;
@@ -36,16 +36,16 @@ public class ComplexNumberQueue {
     public ComplexNumberContainer[] toContainers() { //перетворення черги в масив контейнерів комплексних чисел
         ComplexNumberContainer[] result = new ComplexNumberContainer[size];
         int i = 0;
-        for (ListNode current = tail; current != null; current = current.getNext(), i++) {
-            result[i] = new ComplexNumberContainer(current.getValue());
+        for (ListNode current = tail; current != null; current = current.next(), i++) {
+            result[i] = new ComplexNumberContainer(current.value());
         }
         return result;
     }
     public ComplexNumber[] toComplexNumbers() { //перетворення черги в масив комплексних чисел
         ComplexNumber[] result = new ComplexNumber[size];
         int i = 0;
-        for (ListNode current = tail; current != null; current = current.getNext(), i++) {
-            result[i] = current.getValue();
+        for (ListNode current = tail; current != null; current = current.next(), i++) {
+            result[i] = current.value();
         }
         return result;
     }

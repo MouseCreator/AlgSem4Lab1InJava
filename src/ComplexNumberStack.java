@@ -21,16 +21,16 @@ public class ComplexNumberStack {
     public ComplexNumberContainer[] toContainers() { //перетворення стеку в масив контейнерів комплексних чисел
         ComplexNumberContainer[] result = new ComplexNumberContainer[size];
         int i = 0;
-        for (ListNode current = top; current != null; current = current.getNext(), i++) {
-            result[i] = new ComplexNumberContainer(current.getValue());
+        for (ListNode current = top; current != null; current = current.next(), i++) {
+            result[i] = new ComplexNumberContainer(current.value());
         }
         return result;
     }
     public ComplexNumber[] toComplexNumbers() { //перетворення стеку в масив комплексних чисел
         ComplexNumber[] result = new ComplexNumber[size];
         int i = 0;
-        for (ListNode current = top; current != null; current = current.getNext(), i++) {
-            result[i] = current.getValue();
+        for (ListNode current = top; current != null; current = current.next(), i++) {
+            result[i] = current.value();
         }
         return result;
     }

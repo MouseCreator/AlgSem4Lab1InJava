@@ -1,32 +1,9 @@
-public class ListNode {
-    private ListNode next;
-    private ComplexNumber value;
-    public ListNode() {
-        value = new ComplexNumber();
-        next = null;
-    }
-    public ListNode(ComplexNumber value) {
-        this.value = value;
-        next = null;
-    }
-    public ListNode(ComplexNumber value, ListNode next) {
-        this.value = value;
-        this.next = next;
-    }
+/**
+ * Вузол у зв'язнову стеку або черзі
+ *
+ * @param next  наступний вузол
+ * @param value значення, що зберігається у вузлі
+ */
+public record ListNode(ComplexNumber value, ListNode next) {
 
-    public ListNode getNext() {
-        return next;
-    }
-
-    public void setNext(ListNode next) {
-        this.next = next;
-    }
-
-    public ComplexNumber getValue() {
-        return value;
-    }
-
-    public void setValue(ComplexNumber value) {
-        this.value = value;
-    }
 }
