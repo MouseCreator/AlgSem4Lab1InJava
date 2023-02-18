@@ -37,6 +37,11 @@ public class ComplexNumber {
         group = 0;
     }
 
+    /**
+     *
+     * @param obj - інше комплексне число
+     * @return true, якщо дійсна та уявна частина рівні
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -64,7 +69,7 @@ public class ComplexNumber {
         if (imaginary == 1)
             return "i";
         if (imaginary == -1)
-            return "-1";
+            return "-i";
         return imaginary + "*i";
     }
     private String printReal() {
