@@ -1,9 +1,11 @@
 import java.util.Random;
 
+/**
+ * Хеш-таблиця для хешування комплексних чисел
+ */
 public class HashTable implements Container{
-    private Container[] fields;
+    private Container[] fields; //комірки хеш-таблиці
     private int size; //Кількість комірок в хеш-таблиці
-
 
     private int a;
     private int b;
@@ -19,8 +21,8 @@ public class HashTable implements Container{
 
     /**
      *
-     * @param v
-     * @return
+     * @param v - вхідне число
+     * @return об'єкт вхідного числа з таблиці, null - якщо такого об'єкту не знайдено
      */
     public ComplexNumber get(ComplexNumber v) {
         return this.fields[hashFunction(v)].get(v);
@@ -51,7 +53,7 @@ public class HashTable implements Container{
     }
 
     /**
-     *
+     * Передає захешовані значення стеку
      * @param pushTo - стек, який збирає дані по "дереву" контейнерів
      */
     public void pickHashedData(ComplexNumberStack pushTo) {
@@ -66,10 +68,10 @@ public class HashTable implements Container{
     /**
      *
      * @param array - масив комплексних числе
-     * @return вхідний масив, який не містить однакових елементів
+     * @return масив, елементи якого не повторюються
      */
     private ComplexNumber[] removeDuplicates (ComplexNumber[] array) {
-        ComplexNumberStack stack = new ComplexNumberStack();
+        ComplexNumberQueue queue = new ComplexNumberQueue();
         for (int i = 0; i < array.length; i++) {
             boolean isDistinct = true;
             for (int j = i + 1; j < array.length; j++) {
@@ -79,14 +81,14 @@ public class HashTable implements Container{
                 }
             }
             if (isDistinct) {
-                stack.push(array[i]);
+                queue.push(array[i]);
             }
         }
-        return stack.toComplexNumbers();
+        return queue.toComplexNumbers();
     }
 
     /**
-     *
+     * Заповнення полів таблиці новими хеш-таблицями та поміщення відповідних значень до них
      * @param array - масив, який потрібно захешувати
      */
     private void hashArrayToNextLayer(ComplexNumber[] array) {
@@ -106,6 +108,13 @@ public class HashTable implements Container{
             }
         }
     }
+
+    /**
+     *
+     * @param queue - черга комплексних чисел, яку потрібно захешувати
+     * @param size - необхідний розмір таблиці
+     * @param p - поперенє значення параметру P (єдине для всіх таблиць)
+     */
     private HashTable(ComplexNumberQueue queue, int size, int p) {
         this.p = p;
         this.size = size;
@@ -113,7 +122,12 @@ public class HashTable implements Container{
         while (!success)
             success = toNumberContainers(queue);
     }
-    protected void setP(ComplexNumber[] forList) { //Обрахування найбільшого ключа та встановлення значення P
+
+    /**
+     * Обрахування найбільшого ключа та встановлення значення P
+     * @param forList - масив комплексних чисел, який потрібно захешувати
+     */
+    protected void setP(ComplexNumber[] forList) {
         int max = 0; //максимальний ключ
         for (ComplexNumber c : forList) {
             max = Math.max(c.toInteger(), max);
@@ -133,7 +147,7 @@ public class HashTable implements Container{
         for (ComplexNumberContainer container : containers) {
             int hash = hashFunction(container.get()); //обрахувати номер комірки для вхідного числа
             if (fields[hash] != null) { //якщо комірка вже зайнята
-               return false;//повторити на новиій хеш-функції
+               return false; //повторити на новиій хеш-функції
             }
             fields[hash] = new ComplexNumberContainer(container.get());
         }
@@ -183,10 +197,10 @@ public class HashTable implements Container{
      */
     @Override
     public void insert(ComplexNumber value) {
-        Container current = this.fields[hashFunction(value)];
-        if(current != null)
-            current.insert(value);
+        int hash = hashFunction(value);
+        if(this.fields[hashFunction(value)] != null)
+            this.fields[hashFunction(value)].insert(value); //замінити значення у відповідну комірку
         else
-            this.fields[hashFunction(value)] = new ComplexNumberContainer(value);
+            this.fields[hash] = new ComplexNumberContainer(value); //помістити у новий контейнер
     }
 }
