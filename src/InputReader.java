@@ -11,22 +11,25 @@ public class InputReader {
      */
     public static ComplexNumber[] readNumbers() {
         ComplexNumberQueue numbers = new ComplexNumberQueue();
-        int lineNumber = 0;
+        int lineNumber = 0; //підрахунок рядків (для точного вказання місця помилки)
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile)); //відкрити файл
             String line = reader.readLine();
             while (line != null) {
-                lineNumber++; //підрахунок рядків (для можливого точного вказання місця помилки)
-                try {
-                    ComplexNumber toAdd = parseComplexNumber(line);
-                    if (toAdd != null)
+                lineNumber++;
+                if (!line.isEmpty()) {
+                    try {
+                        ComplexNumber toAdd = parseComplexNumber(line);
                         numbers.push(toAdd);
-                } catch (Exception e) {
-                    OutputWriter.logError("An error occurred during reading line " + lineNumber);
+                    } catch (Exception e) {
+                        //повідомити про помилку у рядку
+                        OutputWriter.logError("An error occurred during reading line " + lineNumber);
+                    }
                 }
                 line = reader.readLine();
             }
         } catch (IOException e) {
+            //повідомити про помилку у файлі
             OutputWriter.logError("Cannot open input file. Default values will be used instead.");
             return defaultList();
         }
@@ -36,7 +39,7 @@ public class InputReader {
 
     /**
      *
-     * @return приклад вхідного списку
+     * @return приклад списку комплексних чисел
      */
     private static ComplexNumber[] defaultList() {
         ComplexNumber[] defaultList = new ComplexNumber[8];
@@ -50,26 +53,47 @@ public class InputReader {
         defaultList[7] = new ComplexNumber(9, -9);
         return defaultList;
     }
+
+    /**
+     *
+     * @param line - рядок з записом комплексного числа
+     * @return комплексне число у рядку
+     */
     protected static ComplexNumber parseComplexNumber(String line) {
         return line.matches("[+-]?\\d+\s+[+-]?\\d+") ? defaultRead(line) : advancedRead(line);
     }
+
+    /**
+     *
+     * @param line - рядок у форматі "A B"
+     * @return число A+B*i
+     */
     private static ComplexNumber defaultRead(String line) {
         String[] lines = line.trim().split("\s+");
         assert lines.length == 2;
         return new ComplexNumber(Integer.parseInt(lines[0]), Integer.parseInt(lines[1]));
     }
-    private static ComplexNumber advancedRead(String line) {
-        line = line.replaceAll("\\s+", "");
 
+    /**
+     *
+     * @param line - рядок у форматі "A+B*i" чи подібних
+     * @return число A+B*i
+     */
+    private static ComplexNumber advancedRead(String line) {
+
+        //поділ рядка-полінома на доданки
+        line = line.replaceAll("\\s+", "");
         line = line.replaceAll("-", "+-");
         String[] parts = line.split("\\+");
+
+        //обрахунок значення полінома
         int real = 0;
         int imaginary = 0;
         for (String number : parts) {
             if (number.isEmpty())
                 continue;
-            if (number.contains("i")) {
-                number = number.replaceAll("(\\*?i)|(8\\*?)", "");
+            if (number.contains("i")) { //випадок, коли доданок є уявним
+                number = number.replaceAll("(\\*?i)", "");
                 if (number.isEmpty()) {
                     imaginary += 1;
                 } else if (number.equals("-")){
@@ -78,7 +102,7 @@ public class InputReader {
                     imaginary += Integer.parseInt(number);
                 }
             }
-            else {
+            else { //випадок, коли доданок є дійсним
                 real += Integer.parseInt(number);
             }
         }

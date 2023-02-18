@@ -15,6 +15,9 @@ class InputReaderTest {
     @Test
     void ParserAdvancedTest() {
         assertEquals(InputReader.parseComplexNumber("1+i"), new ComplexNumber(1, 1));
+        assertEquals(InputReader.parseComplexNumber("3+7i"), new ComplexNumber(3, 7));
+        assertEquals(InputReader.parseComplexNumber("9i"), new ComplexNumber(0, 9));
+        assertEquals(InputReader.parseComplexNumber("1+i"), new ComplexNumber(1, 1));
         assertEquals(InputReader.parseComplexNumber("-3-4*i"), new ComplexNumber(-3, -4));
         assertEquals(InputReader.parseComplexNumber("20i+10+40i"), new ComplexNumber(10, 60));
         assertEquals(InputReader.parseComplexNumber("2+i10"), new ComplexNumber(2, 10));
