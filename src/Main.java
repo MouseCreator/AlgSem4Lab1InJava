@@ -1,4 +1,5 @@
 public class Main {
+    //початок виконання програми
     public static void main(String[] args) {
         OutputWriter.clear(); //підготувати вихідний файл
         ComplexNumber[] toHash = InputReader.readNumbers(); //зчитати вхідні дані

@@ -23,6 +23,11 @@ public class ComplexNumberContainer implements Container {
         number = value;
     }
 
+    @Override
+    public ComplexNumber get(ComplexNumber v) {
+        return v.equals(number) ? number : null;
+    }
+
     /**
      *
      * @param pushTo - стек, у який помістить значення в контейнері

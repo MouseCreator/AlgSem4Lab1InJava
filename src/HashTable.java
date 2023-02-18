@@ -19,6 +19,14 @@ public class HashTable implements Container{
 
     /**
      *
+     * @param v
+     * @return
+     */
+    public ComplexNumber get(ComplexNumber v) {
+        return this.fields[hashFunction(v)].get(v);
+    }
+    /**
+     *
      * @param array - вхідний масив комплексних чисел, який треба захешувати
      */
     public void hash(ComplexNumber[] array) {
@@ -171,10 +179,14 @@ public class HashTable implements Container{
      *
      * @param value - значення, яке потрібно додати до хеш-таблиці.
      * Якщо таблиця містить інші хеш-таблиці - значення передасться їм.
-     * Якщо таблиця містить контейнери, то значення захешується (з можливою заміною іншогго значення).
+     * Якщо таблиця містить контейнери, то значення захешується (з можливою заміною попереднього значення).
      */
     @Override
     public void insert(ComplexNumber value) {
-        this.fields[hashFunction(value)].insert(value);
+        Container current = this.fields[hashFunction(value)];
+        if(current != null)
+            current.insert(value);
+        else
+            this.fields[hashFunction(value)] = new ComplexNumberContainer(value);
     }
 }

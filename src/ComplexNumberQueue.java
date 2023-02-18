@@ -1,7 +1,11 @@
+/**
+ * Черга, яка містить комплексні числа.
+ * Використовується для тимчасового зберігання комплексних чисел.
+ */
 public class ComplexNumberQueue {
-    private ListNode head; //верхній елемент стеку
+    private ListNode head; //початок черги
 
-    private ListNode tail;
+    private ListNode tail; //кінець черги
     private int size; //кількість елементів стеку
 
     public ComplexNumberQueue() { //створення порожнього стеку
@@ -23,7 +27,7 @@ public class ComplexNumberQueue {
             head = tail;
         size++;
     }
-    public ComplexNumber pop() { //додання елементу до стеку
+    public ComplexNumber pop() { //вилучення елемента з черги
         if (size == 0)
             return null;
         ComplexNumber n = head.value();
