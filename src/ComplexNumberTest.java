@@ -20,7 +20,6 @@ class ComplexNumberTest {
             }
         }
         assertEquals(Arrays.stream(arr).distinct().toArray().length, arr.length);
-        System.out.println(max);
         assertTrue(max < 46340);
     }
 }
