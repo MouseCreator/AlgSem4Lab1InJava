@@ -32,6 +32,7 @@ public class HashTable implements Container{
      * @param array - вхідний масив комплексних чисел, який треба захешувати
      */
     public void hash(ComplexNumber[] array) {
+        removeLargeInputs(array); //заміна небезпечних вхідних даних
         array = getAllValuesWithOutDuplicates(array); //поєднати вхідні дані з наявними та вилучити дублікати
         if (array == null)
             return;
@@ -39,6 +40,18 @@ public class HashTable implements Container{
         setP(array); //визначення параметра P - простого числа
         randomizeHashFunction(); //підбір випадкової хеш-функції з множини універсальних хеш-функцій
         hashArrayToNextLayer(array); //хешування даних
+    }
+
+    private void removeLargeInputs(ComplexNumber[] array) {
+        for (int i = 0; i < array.length; i++) {
+            int key = array[i].toInteger();
+            if (key > ComplexNumberGenerator.LIMIT) {
+                key = key % ComplexNumberGenerator.LIMIT;
+                ComplexNumber alternate = new ComplexNumber(key);
+                OutputWriter.logError("Complex number " + array[i]+ "is too large. It will be replaced with " + alternate);
+                array[i] = new ComplexNumber(key);
+            }
+        }
     }
 
     /**

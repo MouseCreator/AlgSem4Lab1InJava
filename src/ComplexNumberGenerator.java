@@ -2,6 +2,9 @@
 import java.util.Random;
 
 public class ComplexNumberGenerator {
+    public static final int LIMIT = (int) Math.sqrt(Integer.MAX_VALUE);
+    //значення ключа, при якому хеш гарантовано не виходить за INT_MAX
+    public final int MAX_BOUND = 150; //значення суми компонент, при якому хеш гарантовано не виходить за INT_MAX
     private final Random random;
     public ComplexNumberGenerator() {
         random = new Random();
@@ -22,7 +25,6 @@ public class ComplexNumberGenerator {
         return arr;
     }
 
-    public final int MAX_BOUND = 150; //значення суми компонент, при якому хеш гарантовано не виходить за INT_MAX.
 
     /**
      *

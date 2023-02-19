@@ -37,6 +37,36 @@ public class ComplexNumber {
         group = 0;
     }
 
+    public ComplexNumber(int key) {
+        int g = key % 4;
+        key -= g;
+        key /= 4;
+        boolean found = false;
+        int i = -1;
+        int a = -1;
+        int b = -1;
+        while (a == -1) {
+            i++;
+            for (int j = 0; j < key; j++) {
+                if (pairingFunction(i, j) == key) {
+                    a = i;
+                    b = j;
+                }
+            }
+        }
+        if (g == 1) {
+            a *= -1;
+        } else if (g == 2) {
+            a *= -1;
+            b *= -1;
+        } else if (g == 3) {
+            b *= -1;
+        }
+        this.real = a;
+        this.imaginary = b;
+        this.group = g;
+    }
+
     /**
      *
      * @param obj - інше комплексне число
