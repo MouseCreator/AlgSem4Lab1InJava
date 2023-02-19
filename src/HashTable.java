@@ -39,6 +39,7 @@ public class HashTable implements Container{
         this.size = array.length; //встановлення розміру хеш-таблиці
         setP(array); //визначення параметра P - простого числа
         randomizeHashFunction(); //підбір випадкової хеш-функції з множини універсальних хеш-функцій
+        System.out.println("Out: a: " + a + " b: " + b + " p: " + p + " size: " + size);
         hashArrayToNextLayer(array); //хешування даних
     }
 

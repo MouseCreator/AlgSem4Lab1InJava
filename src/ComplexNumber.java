@@ -125,4 +125,8 @@ public class ComplexNumber {
     protected int pairingFunction(int a, int b) {
         return (a+b)*(a+b+1)/2+a;
     }
+    @Override
+    public int hashCode() {
+        return toInteger();
+    }
 }
