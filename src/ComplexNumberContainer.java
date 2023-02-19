@@ -44,4 +44,8 @@ public class ComplexNumberContainer implements Container {
     public ComplexNumber get() {
         return number;
     }
+    @Override
+    public String toString() {
+        return "[" + number.toString() + "]";
+    }
 }

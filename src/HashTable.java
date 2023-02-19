@@ -45,6 +45,7 @@ public class HashTable implements Container{
     private void removeLargeInputs(ComplexNumber[] array) {
         for (int i = 0; i < array.length; i++) {
             int key = array[i].toInteger();
+            System.out.println(array[i] + " " + key);
             if (key > ComplexNumberGenerator.LIMIT) {
                 key = key % ComplexNumberGenerator.LIMIT;
                 ComplexNumber alternate = new ComplexNumber(key);
@@ -57,7 +58,7 @@ public class HashTable implements Container{
     /**
      *
      * @param array - додаткові вхідні дані
-     * @return масив комплексних чисел, який містить додаткові та попередні вхідні дані без повторень
+     * @return масив комплексних чисел, який містить попередні та додаткові вхідні дані без повторень
      */
     private ComplexNumber[] getAllValuesWithOutDuplicates(ComplexNumber[] array) {
         ComplexNumberStack stack = new ComplexNumberStack(array);
@@ -164,6 +165,11 @@ public class HashTable implements Container{
             }
             fields[hash] = new ComplexNumberContainer(container.get());
         }
+        for (ComplexNumberContainer container : containers) {
+            System.out.print(container.toString() + " " + hashFunction(container.get()));
+        }
+        System.out.println();
+        System.out.println("a: " + a + " b: " + b + " p: " + p + " size: " + size);
         return true;
     }
 

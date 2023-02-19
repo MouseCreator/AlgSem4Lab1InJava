@@ -1,9 +1,5 @@
 import org.junit.jupiter.api.Test;
-
-import java.security.Key;
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HashTableTest {
     @Test
