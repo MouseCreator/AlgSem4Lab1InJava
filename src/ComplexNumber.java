@@ -21,9 +21,9 @@ public class ComplexNumber {
             group = 0;
         } else if (real < 0 && imaginary >= 0) {
             group = 1;
-        } else if (real < 0) { //imaginary >= 0
+        } else if (real < 0) { //imaginary < 0
             group = 2;
-        } else { //real >= 0 imaginary >= 0
+        } else { //real >= 0 imaginary < 0
             group = 3;
         }
     }
