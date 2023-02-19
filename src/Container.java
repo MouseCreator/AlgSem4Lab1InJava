@@ -8,5 +8,5 @@ public interface Container {
     void insert(ComplexNumber value); //вставка значення
 
     ComplexNumber get(ComplexNumber v);
-    void pickHashedData(ComplexNumberStack pushTo); //передати значення стеку, що даний як параметр
+    void pickHashedData(ComplexNumberList pushTo); //передати значення стеку, що даний як параметр
 }

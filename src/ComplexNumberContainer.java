@@ -33,7 +33,7 @@ public class ComplexNumberContainer implements Container {
      * @param pushTo - стек, у який помістить значення в контейнері
      */
     @Override
-    public void pickHashedData(ComplexNumberStack pushTo) {
+    public void pickHashedData(ComplexNumberList pushTo) {
         pushTo.push(number);
     }
 

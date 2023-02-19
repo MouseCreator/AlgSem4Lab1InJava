@@ -1,4 +1,4 @@
-public class ComplexNumberStack {
+public class ComplexNumberStack implements ComplexNumberList{
     private ListNode top; //верхній елемент стеку
     private int size; //кількість елементів стеку
 
@@ -18,6 +18,17 @@ public class ComplexNumberStack {
         this.top = new ListNode(number, top);
         size++;
     }
+
+    @Override
+    public ComplexNumber pop() {
+        if (this.top == null)
+            return null;
+        ComplexNumber n = this.top.value();
+        this.top = top.next();
+        size--;
+        return n;
+    }
+
     public ComplexNumberContainer[] toContainers() { //перетворення стеку в масив контейнерів комплексних чисел
         ComplexNumberContainer[] result = new ComplexNumberContainer[size];
         int i = 0;

@@ -2,26 +2,26 @@
  * Черга, яка містить комплексні числа.
  * Використовується для тимчасового зберігання комплексних чисел.
  */
-public class ComplexNumberQueue {
+public class ComplexNumberQueue implements ComplexNumberList{
     private ListNode head; //початок черги
 
     private ListNode tail; //кінець черги
     private int size; //кількість елементів стеку
 
-    public ComplexNumberQueue() { //створення порожнього стеку
+    public ComplexNumberQueue() { //створення порожньої черги
         size = 0;
         head = null;
         tail = null;
     }
 
-    public ComplexNumberQueue(ComplexNumber[] array) { //створення стеку з масиву
+    public ComplexNumberQueue(ComplexNumber[] array) { //створення черги з масиву
         if (array != null)
             for (ComplexNumber a : array) {
                 push(a);
             }
     }
 
-    public void push(ComplexNumber number) { //додання елементу до стеку
+    public void push(ComplexNumber number) { //додання елементу до черги
         tail = new ListNode(number, tail);
         if (head == null)
             head = tail;

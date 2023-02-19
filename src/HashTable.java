@@ -56,7 +56,7 @@ public class HashTable implements Container{
      * Передає захешовані значення стеку
      * @param pushTo - стек, який збирає дані по "дереву" контейнерів
      */
-    public void pickHashedData(ComplexNumberStack pushTo) {
+    public void pickHashedData(ComplexNumberList pushTo) {
         if (this.size > 0 && this.fields != null) {
             for (Container container : fields) {
                 if (container != null)
