@@ -22,7 +22,7 @@ public class ComplexNumberGenerator {
         return arr;
     }
 
-    public final int MAX_BOUND = 150; //значення суми компонент, при якому хеш гарантовано не виходить за INT_MAX.
+    public final int MAX_BOUND = 100; //значення суми компонент, при якому хеш гарантовано не виходить за INT_MAX.
 
     /**
      *
