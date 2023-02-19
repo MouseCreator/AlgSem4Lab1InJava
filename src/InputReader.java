@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class InputReader {
+public abstract class InputReader {
     private static final String inputFile = "data/input.txt";
 
     /**

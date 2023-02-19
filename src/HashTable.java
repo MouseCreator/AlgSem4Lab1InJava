@@ -70,7 +70,7 @@ public class HashTable implements Container{
      * @param array - масив комплексних числе
      * @return масив, елементи якого не повторюються
      */
-    private ComplexNumber[] removeDuplicates (ComplexNumber[] array) {
+    private ComplexNumber[] removeDuplicates(ComplexNumber[] array) {
         ComplexNumberQueue queue = new ComplexNumberQueue();
         for (int i = 0; i < array.length; i++) {
             boolean isDistinct = true;
@@ -125,11 +125,11 @@ public class HashTable implements Container{
 
     /**
      * Обрахування найбільшого ключа та встановлення значення P
-     * @param forList - масив комплексних чисел, який потрібно захешувати
+     * @param numbersToHash - масив комплексних чисел, який потрібно захешувати
      */
-    protected void setP(ComplexNumber[] forList) {
+    protected void setP(ComplexNumber[] numbersToHash) {
         int max = 0; //максимальний ключ
-        for (ComplexNumber c : forList) {
+        for (ComplexNumber c : numbersToHash) {
             max = Math.max(c.toInteger(), max);
         }
         p = Primes.nextPrime(max); //наступне просте число
