@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ComplexNumberArray implements Hashable{
     private final ComplexNumber[] array;
     @Override
@@ -20,6 +22,11 @@ public class ComplexNumberArray implements Hashable{
 
     public ComplexNumberArray(ComplexNumber[] array) {
         this.array = array;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(array);
     }
 
 }

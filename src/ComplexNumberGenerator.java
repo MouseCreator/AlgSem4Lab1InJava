@@ -24,14 +24,14 @@ public class ComplexNumberGenerator {
         }
         return arr;
     }
-    public ComplexNumber[][] generateArrays(int number) {
-       return generateArrays(number, 20);
+    public ComplexNumberArray[] generateArrays(int number) {
+       return generateArrays(number, 100);
     }
-    public ComplexNumber[][] generateArrays(int number, int maxSize) {
-        ComplexNumber[][] arr = new ComplexNumber[number][];
+    public ComplexNumberArray[] generateArrays(int number, int maxSize) {
+        ComplexNumberArray[] arr = new ComplexNumberArray[number];
         for (int i = 0; i < number; i++) {
             int size = random.nextInt(2, maxSize+1);
-            arr[i] = generate(size);
+            arr[i] = new ComplexNumberArray(generate(size));
         }
         return arr;
     }
