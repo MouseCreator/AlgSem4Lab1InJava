@@ -24,6 +24,17 @@ public class ComplexNumberGenerator {
         }
         return arr;
     }
+    public ComplexNumber[][] generateArrays(int number) {
+       return generateArrays(number, 20);
+    }
+    public ComplexNumber[][] generateArrays(int number, int maxSize) {
+        ComplexNumber[][] arr = new ComplexNumber[number][];
+        for (int i = 0; i < number; i++) {
+            int size = random.nextInt(2, maxSize+1);
+            arr[i] = generate(size);
+        }
+        return arr;
+    }
 
 
     /**
