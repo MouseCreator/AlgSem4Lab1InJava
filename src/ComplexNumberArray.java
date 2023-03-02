@@ -1,7 +1,10 @@
 import java.util.Arrays;
 
-public class ComplexNumberArray implements Hashable{
-    private final Hashable[] array;
+/**
+ * Масив деякої довжини, який потрібно захешувати
+ */
+public class ComplexNumberArray implements Hashable {
+    private final Hashable[] array; //масив комплексних чисел
 
     public ComplexNumberArray(Hashable[] array) {
         this.array = array;

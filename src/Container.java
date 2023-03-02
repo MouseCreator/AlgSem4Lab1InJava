@@ -8,6 +8,6 @@ public interface Container {
     String print(int tLevel); //друкування складу
     void insert(Hashable value); //вставка значення
 
-    Hashable get(Hashable v);
+    Hashable get(Hashable v); //отримати число
     void pickHashedData(ComplexNumberList pushTo); //передати значення стеку, що даний як параметр
 }

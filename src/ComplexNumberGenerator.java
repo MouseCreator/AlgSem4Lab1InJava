@@ -24,9 +24,22 @@ public class ComplexNumberGenerator {
         }
         return arr;
     }
+
+    /**
+     *
+     * @param number - кількість масивів, що необхідно згенерувати
+     * @return згенеровані масиви
+     */
     public ComplexNumberArray[] generateArrays(int number) {
        return generateArrays(number, 100);
     }
+
+    /**
+     *
+     * @param number - кількість масивів, що необхідно згенерувати
+     * @param maxSize - найбільша можлива довжина масиву
+     * @return зненеровані масиви
+     */
     public ComplexNumberArray[] generateArrays(int number, int maxSize) {
         ComplexNumberArray[] arr = new ComplexNumberArray[number];
         for (int i = 0; i < number; i++) {
