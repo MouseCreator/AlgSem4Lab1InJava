@@ -8,7 +8,7 @@ public class ComplexNumberArray implements Hashable{
         for (ComplexNumber c : array) {
             hash = (hash + a * c.toInteger() + b) % p;
         }
-        return hash;
+        return hash % m;
     }
 
     @Override
