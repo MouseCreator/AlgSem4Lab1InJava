@@ -20,7 +20,6 @@ public class Main {
         OutputWriter.write("\n\n=== РЕЗУЛЬТАТИ ===");
         OutputWriter.write("Комплексні числа:");
         OutputWriter.write(table.print(0)); //вивести хеш-таблицю у вихідний файл
-
         OutputWriter.write("Масиви комплексних чисел:");
         OutputWriter.write(tableForArray.print(0));
     }
