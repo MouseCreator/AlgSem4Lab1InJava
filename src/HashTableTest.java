@@ -91,7 +91,7 @@ class HashTableTest {
     @Test
     void inActionTestOnArrays() {
         ComplexNumberGenerator generator = new ComplexNumberGenerator();
-        ComplexNumberArray[] arr = generator.generateArrays(100);
+        Hashable[] arr = generator.generateArrays(100);
         HashTable table = new HashTable();
         table.hash(arr);
         OutputWriter.writeAsTest(table.print(0));

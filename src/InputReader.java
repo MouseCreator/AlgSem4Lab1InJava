@@ -12,8 +12,8 @@ public abstract class InputReader {
      * Зчитує комплексні числа з файлу input з розрахунком, що кожне число написане з нового радка
      * @return масив комплексних чисел у файлі, якщо зчитування пройшло успішно. Стандартний масив вхідних даних - інакше
      */
-    public static ComplexNumber[] readNumbers() {
-        ComplexNumber[] numbers;
+    public static Hashable[] readNumbers() {
+        Hashable[] numbers;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile)); //відкрити файл
             numbers = readNumbersFromFile(reader);
@@ -26,11 +26,11 @@ public abstract class InputReader {
 
     }
 
-    public static ComplexNumber[][] readArrays() {
-        ArrayList<ComplexNumber[]> result = new ArrayList<>();
+    public static Hashable[][] readArrays() {
+        ArrayList<Hashable[]> result = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputArraysFile)); //відкрити файл
-            ComplexNumber[] currentArray = readNumbersFromFile(reader);
+            Hashable[] currentArray = readNumbersFromFile(reader);
             while (currentArray.length != 0) {
                 result.add(currentArray);
                 currentArray = readNumbersFromFile(reader);
@@ -42,14 +42,14 @@ public abstract class InputReader {
         return arrayOf(result);
 
     }
-    private static ComplexNumber[][] arrayOf(ArrayList<ComplexNumber[]> arr) {
-        ComplexNumber[][] output = new ComplexNumber[arr.size()][];
+    private static Hashable[][] arrayOf(ArrayList<Hashable[]> arr) {
+        Hashable[][] output = new Hashable[arr.size()][];
         for (int i = 0; i < arr.size(); i++)
             output[i] = arr.get(i);
         return output;
     }
 
-    private static ComplexNumber[] readNumbersFromFile(BufferedReader reader) throws IOException {
+    private static Hashable[] readNumbersFromFile(BufferedReader reader) throws IOException {
         String line = reader.readLine();
         int lineNumber = 0; //підрахунок рядків (для точного вказання місця помилки)
         ComplexNumberQueue numbers = new ComplexNumberQueue();
