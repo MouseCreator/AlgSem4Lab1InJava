@@ -21,7 +21,7 @@ public class ComplexNumberArray implements Hashable {
 
     @Override
     public int toInteger() {
-        int max = 0;
+        int max = array.length;
         for (Hashable a : array) {
             max = Math.max(max, a.toInteger());
         }
