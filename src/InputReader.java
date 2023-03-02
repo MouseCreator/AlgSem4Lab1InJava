@@ -26,7 +26,7 @@ public abstract class InputReader {
 
     }
 
-    public static Hashable[][] readArrays() {
+    public static Hashable[] readArrays() {
         ArrayList<Hashable[]> result = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputArraysFile)); //відкрити файл
@@ -42,10 +42,10 @@ public abstract class InputReader {
         return arrayOf(result);
 
     }
-    private static Hashable[][] arrayOf(ArrayList<Hashable[]> arr) {
-        Hashable[][] output = new Hashable[arr.size()][];
+    private static Hashable[] arrayOf(ArrayList<Hashable[]> arr) {
+        ComplexNumberArray[] output = new ComplexNumberArray[arr.size()];
         for (int i = 0; i < arr.size(); i++)
-            output[i] = arr.get(i);
+            output[i] = new ComplexNumberArray(arr.get(i));
         return output;
     }
 
