@@ -180,7 +180,7 @@ public class HashTable implements Container{
      * @return хеш з множини [0, size)
      */
     public int hashFunction(Hashable toHash) {
-        return ((a * toHash.toInteger() + b) % p) % size;
+        return toHash.hash(a, b, p, size);
     }
 
     /**

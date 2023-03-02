@@ -1,6 +1,7 @@
+
 public class ComplexNumberContainer implements Container {
-    private ComplexNumber number; //вміст контейнера
-    public ComplexNumberContainer(ComplexNumber n) {
+    private Hashable number; //вміст контейнера
+    public ComplexNumberContainer(Hashable n) {
         this.number = n;
     }
 
@@ -19,12 +20,12 @@ public class ComplexNumberContainer implements Container {
      * @param value - значення, що необхідно помістити в контейнер (попереднє буде видалено)
      */
     @Override
-    public void insert(ComplexNumber value) {
+    public void insert(Hashable value) {
         number = value;
     }
 
     @Override
-    public ComplexNumber get(ComplexNumber v) {
+    public Hashable get(Hashable v) {
         return v.equals(number) ? number : null;
     }
 
@@ -41,7 +42,7 @@ public class ComplexNumberContainer implements Container {
      *
      * @return вміст контейнера
      */
-    public ComplexNumber get() {
+    public Hashable get() {
         return number;
     }
     @Override

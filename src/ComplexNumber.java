@@ -1,4 +1,4 @@
-public class ComplexNumber {
+public class ComplexNumber implements Hashable{
 
     private final int real; //дійсна частина числа
     private final int imaginary; //уявна частина числа
@@ -128,5 +128,9 @@ public class ComplexNumber {
     @Override
     public int hashCode() {
         return toInteger();
+    }
+
+    public int hash(int a, int b, int p, int m) {
+       return ((a * this.toInteger() + b) % p) % m;
     }
 }
