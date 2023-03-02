@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
+import java.util.Random;
 
 class HashTableTest {
     @Test
@@ -90,10 +91,13 @@ class HashTableTest {
 
     @Test
     void inActionTestOnArrays() {
+        Random r = new Random();
+        long seed = r.nextLong();
         ComplexNumberGenerator generator = new ComplexNumberGenerator();
         Hashable[] arr = generator.generateArrays(100);
-        HashTable table = new HashTable();
+        HashTable table = new HashTable(seed);
         table.hash(arr);
         OutputWriter.writeAsTest(table.print(0));
+
     }
 }
