@@ -14,29 +14,30 @@ public class ComplexNumberQueue implements ComplexNumberList{
         tail = null;
     }
 
-    public ComplexNumberQueue(ComplexNumber[] array) { //створення черги з масиву
+    public ComplexNumberQueue(Hashable[] array) { //створення черги з масиву
         if (array != null)
-            for (ComplexNumber a : array) {
+            for (Hashable a : array) {
                 push(a);
             }
     }
 
-    public void push(ComplexNumber number) { //додання елементу до черги
+    public void push(Hashable number) { //додання елементу до черги
         tail = new ListNode(number, tail);
         if (head == null)
             head = tail;
         size++;
     }
-    public ComplexNumber pop() { //вилучення елемента з черги
+    public Hashable pop() { //вилучення елемента з черги
         if (size == 0)
             return null;
-        ComplexNumber n = head.value();
+        Hashable n = head.value();
         head = head.next();
         if (head == null)
             tail = null;
         size--;
         return n;
     }
+    @Override
     public ComplexNumberContainer[] toContainers() { //перетворення черги в масив контейнерів комплексних чисел
         ComplexNumberContainer[] result = new ComplexNumberContainer[size];
         int i = 0;
@@ -45,8 +46,9 @@ public class ComplexNumberQueue implements ComplexNumberList{
         }
         return result;
     }
-    public ComplexNumber[] toComplexNumbers() { //перетворення черги в масив комплексних чисел
-        ComplexNumber[] result = new ComplexNumber[size];
+    @Override
+    public Hashable[] toComplexNumbers() { //перетворення черги в масив комплексних чисел
+        Hashable[] result = new Hashable[size];
         int i = 0;
         for (ListNode current = tail; current != null; current = current.next(), i++) {
             result[i] = current.value();

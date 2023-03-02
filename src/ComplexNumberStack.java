@@ -1,4 +1,4 @@
-public class ComplexNumberStack implements ComplexNumberList{
+public class ComplexNumberStack implements ComplexNumberList {
     private ListNode top; //верхній елемент стеку
     private int size; //кількість елементів стеку
 
@@ -7,23 +7,23 @@ public class ComplexNumberStack implements ComplexNumberList{
         top = null;
     }
 
-    public ComplexNumberStack(ComplexNumber[] array) { //створення стеку з масиву
+    public ComplexNumberStack(Hashable[] array) { //створення стеку з масиву
         if (array != null)
-            for (ComplexNumber a : array) {
+            for (Hashable a : array) {
                 push(a);
             }
     }
-
-    public void push(ComplexNumber number) { //додання елементу до стеку
+    @Override
+    public void push(Hashable number) { //додання елементу до стеку
         this.top = new ListNode(number, top);
         size++;
     }
 
     @Override
-    public ComplexNumber pop() {
+    public Hashable pop() {
         if (this.top == null)
             return null;
-        ComplexNumber n = this.top.value();
+        Hashable n = this.top.value();
         this.top = top.next();
         size--;
         return n;
@@ -37,11 +37,11 @@ public class ComplexNumberStack implements ComplexNumberList{
         }
         return result;
     }
-    public ComplexNumber[] toComplexNumbers() { //перетворення стеку в масив комплексних чисел
-        ComplexNumber[] result = new ComplexNumber[size];
+    public Hashable[] toComplexNumbers() { //перетворення стеку в масив комплексних чисел
+        Hashable[] result = new Hashable[size];
         int i = 0;
         for (ListNode current = top; current != null; current = current.next(), i++) {
-            result[i] = current.value();
+             result[i] = current.value();
         }
         return result;
     }

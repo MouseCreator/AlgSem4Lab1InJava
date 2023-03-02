@@ -1,8 +1,9 @@
+
 public interface ComplexNumberList {
-    void push(ComplexNumber number);
-    ComplexNumber pop();
+    void push(Hashable number);
+    Hashable pop();
     ComplexNumberContainer[] toContainers();
-    ComplexNumber[] toComplexNumbers();
+    Hashable[] toComplexNumbers();
 
     int size();
 }
