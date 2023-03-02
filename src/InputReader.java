@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public abstract class InputReader {
     private static final String inputFile = "data/input.txt";
 
+    private static final String inputArraysFile = "data/input_arrays.txt";
+
     /**
      * Зчитує комплексні числа з файлу input з розрахунком, що кожне число написане з нового радка
      * @return масив комплексних чисел у файлі, якщо зчитування пройшло успішно. Стандартний масив вхідних даних - інакше
@@ -27,7 +29,7 @@ public abstract class InputReader {
     public static ComplexNumber[][] readArrays() {
         ArrayList<ComplexNumber[]> result = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile)); //відкрити файл
+            BufferedReader reader = new BufferedReader(new FileReader(inputArraysFile)); //відкрити файл
             ComplexNumber[] currentArray = readNumbersFromFile(reader);
             while (currentArray.length != 0) {
                 result.add(currentArray);
