@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class InputReader {
     private static final String inputFile = "data/input.txt";
@@ -10,32 +11,66 @@ public abstract class InputReader {
      * @return масив комплексних чисел у файлі, якщо зчитування пройшло успішно. Стандартний масив вхідних даних - інакше
      */
     public static ComplexNumber[] readNumbers() {
-        ComplexNumberQueue numbers = new ComplexNumberQueue();
-        int lineNumber = 0; //підрахунок рядків (для точного вказання місця помилки)
+        ComplexNumber[] numbers;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile)); //відкрити файл
-            String line = reader.readLine();
-            while (line != null) {
-                lineNumber++;
-                if (!line.isEmpty()) {
-                    try {
-                        ComplexNumber toAdd = parseComplexNumber(line);
-                        numbers.push(toAdd);
-                    } catch (Exception e) {
-                        //повідомити про помилку у рядку
-                        OutputWriter.logError("An error occurred during reading line " + lineNumber);
-                    }
-                }
-                line = reader.readLine();
-            }
+            numbers = readNumbersFromFile(reader);
         } catch (IOException e) {
             //повідомити про помилку у файлі
             OutputWriter.logError("Cannot open input file. Default values will be used instead.");
             return defaultList();
         }
-        return numbers.toComplexNumbers();
+        return numbers;
 
     }
+
+    public static ComplexNumber[][] readArrays() {
+        ArrayList<ComplexNumber[]> result = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile)); //відкрити файл
+            ComplexNumber[] currentArray = readNumbersFromFile(reader);
+            while (currentArray.length != 0) {
+                result.add(currentArray);
+                currentArray = readNumbersFromFile(reader);
+            }
+        } catch (IOException e) {
+            //повідомити про помилку у файлі
+            OutputWriter.logError("Cannot open input file. Default values will be used instead.");
+        }
+        return arrayOf(result);
+
+    }
+    private static ComplexNumber[][] arrayOf(ArrayList<ComplexNumber[]> arr) {
+        ComplexNumber[][] output = new ComplexNumber[arr.size()][];
+        for (int i = 0; i < arr.size(); i++)
+            output[i] = arr.get(i);
+        return output;
+    }
+
+    private static ComplexNumber[] readNumbersFromFile(BufferedReader reader) throws IOException {
+        String line = reader.readLine();
+        int lineNumber = 0; //підрахунок рядків (для точного вказання місця помилки)
+        ComplexNumberQueue numbers = new ComplexNumberQueue();
+        while (IsNotEndOfFile(line)) {
+            lineNumber++;
+            if (!line.isEmpty()) {
+                try {
+                    ComplexNumber toAdd = parseComplexNumber(line);
+                    numbers.push(toAdd);
+                } catch (Exception e) {
+                    //повідомити про помилку у рядку
+                    OutputWriter.logError("An error occurred during reading line " + lineNumber);
+                }
+            }
+            line = reader.readLine();
+        }
+        return numbers.toComplexNumbers();
+    }
+
+    private static boolean IsNotEndOfFile(String line) {
+        return line != null && !line.contains("~");
+    }
+
 
     /**
      *
@@ -60,7 +95,7 @@ public abstract class InputReader {
      * @return комплексне число у рядку
      */
     protected static ComplexNumber parseComplexNumber(String line) {
-        return line.matches("[+-]?\\d+\s+[+-]?\\d+") ? defaultRead(line) : advancedRead(line);
+        return line.matches("[+-]?\\d+ +[+-]?\\d+") ? defaultRead(line) : advancedRead(line);
     }
 
     /**
@@ -69,7 +104,7 @@ public abstract class InputReader {
      * @return число A+B*i
      */
     private static ComplexNumber defaultRead(String line) {
-        String[] lines = line.trim().split("\s+");
+        String[] lines = line.trim().split(" +");
         assert lines.length == 2;
         return new ComplexNumber(Integer.parseInt(lines[0]), Integer.parseInt(lines[1]));
     }
