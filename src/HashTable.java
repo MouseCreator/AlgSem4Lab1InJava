@@ -31,14 +31,18 @@ public class HashTable implements Container{
      * @param array - вхідний масив комплексних чисел, який треба захешувати
      */
     public void hash(Hashable[] array) {
-        removeLargeInputs(array); //заміна небезпечних вхідних даних
-        array = getAllValuesWithOutDuplicates(array); //поєднати вхідні дані з наявними та вилучити дублікати
-        if (array == null)
-            return;
-        this.size = array.length; //встановлення розміру хеш-таблиці
-        setP(array); //визначення параметра P - простого числа
-        randomizeHashFunction(); //підбір випадкової хеш-функції з множини універсальних хеш-функцій
-        hashArrayToNextLayer(array); //хешування даних
+        try {
+            removeLargeInputs(array); //заміна небезпечних вхідних даних
+            array = getAllValuesWithOutDuplicates(array); //поєднати вхідні дані з наявними та вилучити дублікати
+            if (array == null)
+                return;
+            this.size = array.length; //встановлення розміру хеш-таблиці
+            setP(array); //визначення параметра P - простого числа
+            randomizeHashFunction(); //підбір випадкової хеш-функції з множини універсальних хеш-функцій
+            hashArrayToNextLayer(array); //хешування даних
+        } catch (Exception e) {
+            OutputWriter.write("Impossible to hash input values: the hash is identical for any random parameters!");
+        }
     }
 
     private void removeLargeInputs(Hashable[] array) {
