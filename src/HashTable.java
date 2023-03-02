@@ -6,7 +6,6 @@ import java.util.Random;
 public class HashTable implements Container{
     private Container[] fields; //комірки хеш-таблиці
     private int size; //Кількість комірок в хеш-таблиці
-
     private int a;
     private int b;
     private int p; //Просте число, більше будь-якого ключа
@@ -24,14 +23,14 @@ public class HashTable implements Container{
      * @param v - вхідне число
      * @return об'єкт вхідного числа з таблиці, null - якщо такого об'єкту не знайдено
      */
-    public ComplexNumber get(ComplexNumber v) {
+    public Hashable get(Hashable v) {
         return this.fields[hashFunction(v)].get(v);
     }
     /**
      *
      * @param array - вхідний масив комплексних чисел, який треба захешувати
      */
-    public void hash(ComplexNumber[] array) {
+    public void hash(Hashable[] array) {
         removeLargeInputs(array); //заміна небезпечних вхідних даних
         array = getAllValuesWithOutDuplicates(array); //поєднати вхідні дані з наявними та вилучити дублікати
         if (array == null)
@@ -42,7 +41,7 @@ public class HashTable implements Container{
         hashArrayToNextLayer(array); //хешування даних
     }
 
-    private void removeLargeInputs(ComplexNumber[] array) {
+    private void removeLargeInputs(Hashable[] array) {
         for (int i = 0; i < array.length; i++) {
             int key = array[i].toInteger();
             if (key > ComplexNumberGenerator.LIMIT) {
@@ -59,7 +58,7 @@ public class HashTable implements Container{
      * @param array - додаткові вхідні дані
      * @return масив комплексних чисел, який містить попередні та додаткові вхідні дані без повторень
      */
-    private ComplexNumber[] getAllValuesWithOutDuplicates(ComplexNumber[] array) {
+    private Hashable[] getAllValuesWithOutDuplicates(Hashable[] array) {
         ComplexNumberStack stack = new ComplexNumberStack(array);
         pickHashedData(stack);
         return stack.size() == 0 ? null : removeDuplicates(stack.toComplexNumbers());
@@ -83,7 +82,7 @@ public class HashTable implements Container{
      * @param array - масив комплексних числе
      * @return масив, елементи якого не повторюються
      */
-    private ComplexNumber[] removeDuplicates(ComplexNumber[] array) {
+    private Hashable[] removeDuplicates(Hashable[] array) {
         ComplexNumberQueue queue = new ComplexNumberQueue();
         for (int i = 0; i < array.length; i++) {
             boolean isDistinct = true;
@@ -104,9 +103,9 @@ public class HashTable implements Container{
      * Заповнення полів таблиці новими хеш-таблицями та поміщення відповідних значень до них
      * @param array - масив, який потрібно захешувати
      */
-    private void hashArrayToNextLayer(ComplexNumber[] array) {
+    private void hashArrayToNextLayer(Hashable[] array) {
         ComplexNumberQueue[] queue = new ComplexNumberQueue[size];
-        for (ComplexNumber complexNumber : array) { //перебір всіх елементів масиву
+        for (Hashable complexNumber : array) { //перебір всіх елементів масиву
             int hash = hashFunction(complexNumber);
             if (queue[hash] == null) {
                 queue[hash] = new ComplexNumberQueue();
@@ -140,9 +139,9 @@ public class HashTable implements Container{
      * Обрахування найбільшого ключа та встановлення значення P
      * @param numbersToHash - масив комплексних чисел, який потрібно захешувати
      */
-    protected void setP(ComplexNumber[] numbersToHash) {
+    protected void setP(Hashable[] numbersToHash) {
         int max = 0; //максимальний ключ
-        for (ComplexNumber c : numbersToHash) {
+        for (Hashable c : numbersToHash) {
             max = Math.max(c.toInteger(), max);
         }
         p = Primes.nextPrime(max); //наступне просте число
@@ -180,7 +179,7 @@ public class HashTable implements Container{
      * @param toHash - число, яке потрібно захешувати
      * @return хеш з множини [0, size)
      */
-    public int hashFunction(ComplexNumber toHash) {
+    public int hashFunction(Hashable toHash) {
         return ((a * toHash.toInteger() + b) % p) % size;
     }
 
@@ -209,7 +208,7 @@ public class HashTable implements Container{
      * Якщо таблиця містить контейнери, то значення захешується (з можливою заміною попереднього значення).
      */
     @Override
-    public void insert(ComplexNumber value) {
+    public void insert(Hashable value) {
         int hash = hashFunction(value);
         if(this.fields[hashFunction(value)] != null)
             this.fields[hashFunction(value)].insert(value); //замінити значення у відповідну комірку
