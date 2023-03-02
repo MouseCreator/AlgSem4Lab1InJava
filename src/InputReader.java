@@ -55,7 +55,7 @@ public abstract class InputReader {
         ComplexNumberQueue numbers = new ComplexNumberQueue();
         while (IsNotEndOfFile(line)) {
             lineNumber++;
-            if (!line.isEmpty()) {
+            if (isReadable(line)) {
                 try {
                     ComplexNumber toAdd = parseComplexNumber(line);
                     numbers.push(toAdd);
@@ -67,6 +67,10 @@ public abstract class InputReader {
             line = reader.readLine();
         }
         return numbers.toComplexNumbers();
+    }
+
+    private static boolean isReadable(String line) {
+        return !line.isEmpty() && !line.startsWith("#");
     }
 
     private static boolean IsNotEndOfFile(String line) {
